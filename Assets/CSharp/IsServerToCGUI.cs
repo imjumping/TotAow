@@ -10,14 +10,15 @@ public class IsServerToCGUI : MonoBehaviour
 #if UNITY_SERVER
       if (target != null)
         {
-            target.text="SERVER; Go Download Server";
+            target.text="TotAowClient(Unity) 不提供服务器... 将以Client运行！";
+            Debug.Log("代码不含服务器逻辑！");
         }
 #else
         if (target != null)
         {
-            target.text = @"欢迎来到TotAow备份软件
+            target.text = @"欢迎来到TotAowClient！
 字体: LXGW Wenkai Mono
-上来就惊艳你！
+本项目完全MIT开源
 ";
         }
 #endif

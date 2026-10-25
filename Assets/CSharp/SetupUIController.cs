@@ -48,11 +48,11 @@ public class SetupUIController : MonoBehaviour
         // 监听键盘
         if (Keyboard.current != null)
         {
-            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
+            if (Keyboard.current.numpadPlusKey.wasPressedThisFrame || Keyboard.current.equalsKey.wasPressedThisFrame)
             {
                 GoNext();
             }
-            else if (Keyboard.current.leftArrowKey.wasPressedThisFrame || Keyboard.current.escapeKey.wasPressedThisFrame)
+            else if (Keyboard.current.escapeKey.wasPressedThisFrame || Keyboard.current.numpadMinusKey.wasPressedThisFrame || Keyboard.current.minusKey.wasPressedThisFrame)
             {
                 GoPrevious();
             }
