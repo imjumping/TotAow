@@ -16,8 +16,8 @@ public class IsServerToCGUI : MonoBehaviour
         if (target != null)
         {
             target.text = @"欢迎来到TotAow备份软件
-Font: LXGW Wenkai
-Made With Unity6
+字体: LXGW Wenkai Mono
+上来就惊艳你！
 ";
         }
 #endif

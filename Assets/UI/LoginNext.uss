@@ -1,0 +1,44 @@
+/* 圆形按钮基础样式 */
+#Next {
+    /* 固定定位 */
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    
+    /* 尺寸与形状 */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* 圆形 */
+    
+    /* 视觉样式 */
+    background-color: #4A90D9; /* 蓝色背景 */
+    border-width: 2px;
+    border-color: #FFFFFF;
+    
+    /* 文本居中 */
+    justify-content: center;
+    align-items: center;
+    
+    /* 文字样式 */
+    color: #FFFFFF;
+    font-size: 18px;
+    -unity-font-style: bold;
+    
+    /* 过渡效果 - 用于缩放动画平滑过渡 */
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out-circ;
+    backdrop-filter:blur(10px);
+    scale: 1;
+    text-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+/* 按下状态 - 缩放动画 */
+#Next:active {
+    scale: 0.95; /* 按下时缩小到85% */
+    background-color: #3A7BC8; /* 按下时颜色略微加深 */
+    border-radius: 30%;
+    backdrop-filter:blur(5px);
+    translate: 0 5px;
+
+}
