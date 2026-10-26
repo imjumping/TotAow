@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.InputSystem; // 引入新版输入系统
-
+using UnityEngine.SceneManagement;
 public class SetupUIController : MonoBehaviour
 {
+    [Header("configinfo的物体")]
+    public Configinfo Configinfost;
     private Button _nextButton;
     private PanelRenderer _panelRenderer;
 
@@ -73,7 +75,12 @@ public class SetupUIController : MonoBehaviour
         }
         else
         {
-            Debug.Log("已经是最后一页了！");
+            Debug.Log("进入主页！");
+            Configinfost.Savetomem();
+            
+            Globaldata.FirstUse = false;
+            // 进入主活动。
+            SceneManager.LoadScene("MainActivity");
         }
     }
 

@@ -17,9 +17,11 @@ public class SetupCam : MonoBehaviour
     void Start()
     {
 #if UNITY_EDITOR
-        // 在编辑器里点 Play 时，强制重置页面为 1，防止被上次运行残留的静态变量干扰
         setuppage = 1;
+        Globaldata.FirstUse = true;
+        Globaldata.LoggedIn = false;
 #endif
+        Debug.Log("喵~");
     }
 
     void Update()
