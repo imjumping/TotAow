@@ -22,11 +22,11 @@ public class Configinfo : MonoBehaviour
         string passwordaa=passworda.text; 
         return new string[] {ipaddressa,usernameaa,passwordaa};
     }
-    public void Savetomem()
+    public void SavetoDisk()
     {
         Globaldata.ServerIP = GetInputa()[0];
         Globaldata.Username = GetInputa()[1];
-        Globaldata.password = GetInputa()[2];
+        Globaldata.Password = GetInputa()[2];
     }
     void Start()
     {

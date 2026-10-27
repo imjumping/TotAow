@@ -14,12 +14,11 @@ public class SetupCam : MonoBehaviour
     [Header("旋转平滑系数 (越小越慢，越大越快，默认5)")]
     public float rotateSmoothSpeed = 5f;
 
-    void Start()
+    void Awake()
     {
 #if UNITY_EDITOR
         setuppage = 1;
         Globaldata.FirstUse = true;
-        Globaldata.LoggedIn = false;
 #endif
         Debug.Log("喵~");
     }

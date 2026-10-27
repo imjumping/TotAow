@@ -76,7 +76,7 @@ public class SetupUIController : MonoBehaviour
         else
         {
             Debug.Log("进入主页！");
-            Configinfost.Savetomem();
+            Configinfost.SavetoDisk();
             
             Globaldata.FirstUse = false;
             // 进入主活动。

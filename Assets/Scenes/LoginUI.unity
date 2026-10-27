@@ -2941,8 +2941,8 @@ MonoBehaviour:
   - {fileID: 1882433415}
   - {fileID: 981298498}
   - {fileID: 1153109283}
-  moveSmoothFactor: 136.1
-  rotateSmoothSpeed: 3
+  moveSmoothFactor: 80
+  rotateSmoothSpeed: 6
 --- !u!1 &1591626133
 GameObject:
   m_ObjectHideFlags: 0
