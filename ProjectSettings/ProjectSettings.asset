@@ -16,13 +16,13 @@ PlayerSettings:
   productName: TotAow
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
   m_SplashScreenAnimation: 1
   m_SplashScreenLogoStyle: 1
-  m_SplashScreenDrawMode: 0
+  m_SplashScreenDrawMode: 1
   m_SplashScreenBackgroundAnimationZoom: 1
   m_SplashScreenLogoAnimationZoom: 1
   m_SplashScreenBackgroundLandscapeAspect: 1
@@ -39,7 +39,11 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
+    duration: 2
+  - logo: {fileID: -3475190785594590356, guid: 256bdf98c27c3c145b724c3ba600dfbc, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   defaultScreenWidth: 1024
   defaultScreenHeight: 768
@@ -58,8 +62,8 @@ PlayerSettings:
   iosShowActivityIndicatorOnLoading: -1
   androidShowActivityIndicatorOnLoading: -1
   iosUseCustomAppBackgroundBehavior: 0
-  allowedAutorotateToPortrait: 1
-  allowedAutorotateToPortraitUpsideDown: 1
+  allowedAutorotateToPortrait: 0
+  allowedAutorotateToPortraitUpsideDown: 0
   allowedAutorotateToLandscapeRight: 1
   allowedAutorotateToLandscapeLeft: 1
   useOSAutorotation: 1
@@ -81,8 +85,8 @@ PlayerSettings:
   androidDefaultWindowHeight: 1080
   androidMinimumWindowWidth: 400
   androidMinimumWindowHeight: 300
-  androidFullscreenMode: 1
-  androidAutoRotationBehavior: 1
+  androidFullscreenMode: 3
+  androidAutoRotationBehavior: 2
   androidPredictiveBackSupport: 1
   androidApplicationEntry: 2
   defaultIsNativeResolution: 1
@@ -150,7 +154,8 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   xboxOneDisableKinectGpuReservation: 1
@@ -164,13 +169,13 @@ PlayerSettings:
   hdrBitDepth: 0
   m_ColorGamuts: 00000000i
   targetPixelDensity: 30
-  resolutionScalingMode: 0
+  resolutionScalingMode: 2
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.UnityTechnologies.com.unity.template.urpblank
+    Android: com.totaow.client
     Standalone: com.Unity-Technologies.com.unity.template.urp-blank
     iPhone: com.Unity-Technologies.com.unity.template.urp-blank
     tvOS: com.Unity-Technologies.com.unity.template.urp-blank
@@ -181,8 +186,8 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 26
-  AndroidTargetSdkVersion: 0
+  AndroidMinSdkVersion: 28
+  AndroidTargetSdkVersion: 35
   AndroidPreferredInstallLocation: 1
   AndroidPreferredDataLocation: 1
   aotOptions: 
@@ -273,7 +278,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 2
+  AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -283,7 +288,7 @@ PlayerSettings:
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
-  androidAppCategory: 3
+  androidAppCategory: 7
   useAndroidAppCategory: 1
   androidAppCategoryOther: 
   AndroidEnableTango: 0
@@ -409,7 +414,9 @@ PlayerSettings:
       m_SubKind: App Store
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 90df2dd2b9d048d488c0d4b4954eec68, type: 3}
+      - {fileID: 2800000, guid: f5ee6b584beaecb4d916292f9b8e92b4, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
@@ -505,6 +512,12 @@ PlayerSettings:
   - m_BuildTarget: AndroidPlayer
     m_APIs: 150000000b000000i
     m_Automatic: 1
+  - m_BuildTarget: LinuxStandaloneSupport
+    m_APIs: 1500000011000000i
+    m_Automatic: 0
+  - m_BuildTarget: WindowsStandaloneSupport
+    m_APIs: 150000001200000002000000i
+    m_Automatic: 0
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
   openGLRequireES31: 0
@@ -902,7 +915,7 @@ PlayerSettings:
   qnxGraphicConfPath: 
   apiCompatibilityLevel: 6
   captureStartupLogs: {}
-  activeInputHandler: 1
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   enableDirectStorage: 0
   cloudProjectId: 

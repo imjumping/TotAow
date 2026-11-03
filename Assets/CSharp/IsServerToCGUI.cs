@@ -10,15 +10,15 @@ public class IsServerToCGUI : MonoBehaviour
 #if UNITY_SERVER
       if (target != null)
         {
-            target.text="TotAowClient(Unity) ²»Ìá¹©·şÎñÆ÷... ½«ÒÔClientÔËĞĞ£¡";
-            Debug.Log("´úÂë²»º¬·şÎñÆ÷Âß¼­£¡");
+            target.text="TotAowClient(Unity) ä¸æä¾›æœåŠ¡å™¨... å°†ä»¥Clientè¿è¡Œï¼";
+            Debug.Log("ä»£ç ä¸å«æœåŠ¡å™¨é€»è¾‘ï¼");
         }
 #else
         if (target != null)
         {
-            target.text = @"»¶Ó­À´µ½TotAowClient£¡
-×ÖÌå: LXGW Wenkai Mono
-±¾ÏîÄ¿ÍêÈ«MIT¿ªÔ´
+            target.text = @"æ¬¢è¿æ¥åˆ°TotAowClientï¼
+å­—ä½“: LXGW Wenkai Mono
+æœ¬é¡¹ç›®å®Œå…¨MITå¼€æº,éœ€è¦åœ¨æœåŠ¡å™¨ã€ç”µè„‘ä¸‹è½½å¯¹åº”æœåŠ¡ç«¯ã€‚
 ";
         }
 #endif
