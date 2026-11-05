@@ -2506,7 +2506,7 @@ MonoBehaviour:
   - {fileID: 1882433415}
   - {fileID: 981298498}
   - {fileID: 1153109283}
-  moveSmoothFactor: 130
+  moveSmoothFactor: 5
   rotateSmoothSpeed: 7
 --- !u!1 &1591626133
 GameObject:
@@ -2616,6 +2616,50 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -40.5, y: 0, z: 10.68}
   m_LocalScale: {x: 185.33998, y: 117.96615, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1613543598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613543600}
+  - component: {fileID: 1613543599}
+  m_Layer: 0
+  m_Name: GameMgr
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1613543599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613543598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f30779299432b419e5c4d0573fb7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FPSChecker
+--- !u!4 &1613543600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613543598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.5697, y: -0, z: -2.005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2759,6 +2803,18 @@ PrefabInstance:
     - target: {fileID: 7140606858727328969, guid: 555b7b0c109e3ec4fa98e6d910bda009, type: 3}
       propertyPath: m_AABB.m_Extent.z
       value: 0.0794235
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140606858727328969, guid: 555b7b0c109e3ec4fa98e6d910bda009, type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140606858727328969, guid: 555b7b0c109e3ec4fa98e6d910bda009, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[0]'
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140606858727328969, guid: 555b7b0c109e3ec4fa98e6d910bda009, type: 3}
+      propertyPath: 'm_BlendShapeWeights.Array.data[17]'
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3900,3 +3956,4 @@ SceneRoots:
   - {fileID: 1631967534}
   - {fileID: 1064911232}
   - {fileID: 1622503050}
+  - {fileID: 1613543600}
