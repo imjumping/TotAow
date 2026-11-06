@@ -1,9 +1,14 @@
 using UnityEngine;
 
-public class FPSDisplay : MonoBehaviour
+public class FPSChecker : MonoBehaviour
 {
     float deltaTime = 0.0f;
-
+    float fps = 0.0f;
+    private float maxHz;
+    void Awake(){ 
+       maxHz = (float)Screen.currentResolution.refreshRateRatio.value;
+        Application.targetFrameRate = (int)maxHz;
+    }
     void Update()
     {
         // 平滑帧时间，避免数字跳动太快
@@ -13,7 +18,8 @@ public class FPSDisplay : MonoBehaviour
     void OnGUI()
     {
         // 计算帧率
-        float fps = 1.0f / deltaTime;
+        if (deltaTime != 0.0f)
+            fps = 1.0f / deltaTime;
         
         // 设置显示样式
         GUIStyle style = new GUIStyle();
