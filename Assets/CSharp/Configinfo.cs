@@ -9,6 +9,7 @@ public class Configinfo : MonoBehaviour
     [Header("登录面板")]
     public GameObject loginPanel;
     [Header("ip")]
+
     public TMP_InputField ipinput;
     [Header("UserName")]
     public TMP_InputField usernamea;
