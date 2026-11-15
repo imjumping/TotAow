@@ -294,9 +294,10 @@ public class SetupUIController : MonoBehaviour
 
         HideStatus();
         _isEnteringMainScene = true;
+        Globaldata.WillGoSence = "MainActivity";
         Debug.Log("进入主页！配置已保存。");
-        // 进入主活动。
-        SceneManager.LoadScene("MainActivity");
+        
+        SceneManager.LoadScene("Loading");
     }
 
     private bool TrySaveConfig()

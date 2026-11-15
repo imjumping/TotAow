@@ -14,6 +14,7 @@ public static class Globaldata
     public static string Username = "";
     public static bool FirstUse = true;
     public static string Password = "";
+    public static string WillGoSence = "";
 
     // ================= 跟硬盘打交道的工具 =================
 

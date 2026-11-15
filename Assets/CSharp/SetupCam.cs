@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SetupCam : MonoBehaviour
 {
+    
     // 注意：如果是做跨脚本全局状态，建议配合 UI 脚本修改。
     public static int setuppage = 1;
 
@@ -16,11 +17,11 @@ public class SetupCam : MonoBehaviour
 
     void Awake()
     {
-#if UNITY_EDITOR
+        Debug.Log("喵~");
+        #if UNITY_EDITOR
         setuppage = 1;
         Globaldata.FirstUse = true;
-#endif
-        Debug.Log("喵~");
+        #endif
     }
 
     void Update()
