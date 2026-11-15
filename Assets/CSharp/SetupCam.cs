@@ -36,16 +36,10 @@ public class SetupCam : MonoBehaviour
 
         if (target != null)
         {
-            // ================= 1. 位移平滑跟随 =================
-            // 这里的 moveSmoothFactor 建议在面板里调到 3 ~ 8 之间。
-            // 如果填 130，相机会瞬移过去，没有任何平滑感。
             float t = moveSmoothFactor * Time.deltaTime;
             
-            // Vector3.Lerp 会自动处理帧率问题，越靠近目标越慢，非常丝滑
             transform.position = Vector3.Lerp(transform.position, target.position, t);
 
-            // ================= 2. 旋转平滑跟随 =================
-            // 旋转原本的代码没问题，保留
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 target.rotation,
