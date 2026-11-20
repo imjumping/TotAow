@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 4206866583905510199, guid: a4d372f7867164b42bf67dce04d62ad8, type: 3}
+  m_Motion: {fileID: 4206866583905510199, guid: 57d17078f0cdff4488dc6e60ea48b6b4, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -41,7 +41,7 @@ AnimatorStateMachine:
     m_Position: {x: 320, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6102601690038118329}
-    m_Position: {x: 400.90656, y: 322.53384, z: 0}
+    m_Position: {x: 400, y: 320, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -83,7 +83,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainActMeow
+  m_Name: MainProgramStanding
   serializedVersion: 6
   m_AnimatorParameters:
   - m_Name: Speed

@@ -12,15 +12,15 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: onlyjumpingmeow
+  companyName: OnlyJumpMeow
   productName: TotAow
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
-  m_ShowUnitySplashScreen: 1
-  m_ShowUnitySplashLogo: 1
+  m_ShowUnitySplashScreen: 0
+  m_ShowUnitySplashLogo: 0
   m_SplashScreenOverlayOpacity: 1
-  m_SplashScreenAnimation: 1
+  m_SplashScreenAnimation: 2
   m_SplashScreenLogoStyle: 1
   m_SplashScreenDrawMode: 1
   m_SplashScreenBackgroundAnimationZoom: 1
@@ -29,10 +29,10 @@ PlayerSettings:
   m_SplashScreenBackgroundPortraitAspect: 1
   m_SplashScreenBackgroundLandscapeUvs:
     serializedVersion: 2
-    x: 0
+    x: 0.09236453
     y: 0
-    width: 1
-    height: 1
+    width: 0.7586207
+    height: 0.99999994
   m_SplashScreenBackgroundPortraitUvs:
     serializedVersion: 2
     x: 0
@@ -40,9 +40,7 @@ PlayerSettings:
     width: 1
     height: 1
   m_SplashScreenLogos:
-  - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
-    duration: 2
-  - logo: {fileID: -3475190785594590356, guid: 256bdf98c27c3c145b724c3ba600dfbc, type: 3}
+  - logo: {fileID: -8583445044375893778, guid: cdc185ce66f388846a2728ea1b8479d0, type: 3}
     duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   defaultScreenWidth: 1024
@@ -153,7 +151,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.1.0
+  bundleVersion: 0.2.0
   preloadedAssets:
   - {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   metroInputSource: 0
@@ -169,7 +167,7 @@ PlayerSettings:
   hdrBitDepth: 0
   m_ColorGamuts: 00000000i
   targetPixelDensity: 30
-  resolutionScalingMode: 2
+  resolutionScalingMode: 1
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.4
@@ -177,7 +175,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.totaow.client
     Standalone: com.Unity-Technologies.com.unity.template.urp-blank
-    iPhone: com.Unity-Technologies.com.unity.template.urp-blank
+    iPhone: com.totaow.client.idevices
     tvOS: com.Unity-Technologies.com.unity.template.urp-blank
   buildNumber:
     Standalone: 0
@@ -214,7 +212,7 @@ PlayerSettings:
   xcodeProjectType: 0
   uIPrerenderedIcon: 0
   uIRequiresPersistentWiFi: 0
-  uIRequiresFullScreen: 1
+  uIRequiresFullScreen: 0
   uIStatusBarHidden: 1
   uIExitOnSuspend: 0
   uIStatusBarStyle: 0
@@ -310,7 +308,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: b6879a714f9a6964d9b4ce9d2c385dff, type: 3}
+      m_Icon: {fileID: 2800000, guid: 360d00e131abb35438fd8a5abe068871, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -414,9 +412,7 @@ PlayerSettings:
       m_SubKind: App Store
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures:
-      - {fileID: 2800000, guid: 90df2dd2b9d048d488c0d4b4954eec68, type: 3}
-      - {fileID: 2800000, guid: f5ee6b584beaecb4d916292f9b8e92b4, type: 3}
+    - m_Textures: []
       m_Width: 432
       m_Height: 432
       m_Kind: 2
@@ -842,11 +838,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: TotAow
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: OnlyJumpMeow
+  metroCertificateIssuer: OnlyJumpMeow
+  metroCertificateNotAfter: 0000abd5fc97de01
   metroApplicationDescription: TotAow
   wsaImages: {}
   metroTileShortName: TotAow
