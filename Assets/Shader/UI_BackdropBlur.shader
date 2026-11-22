@@ -4,12 +4,10 @@ Shader "Custom/UI_BackdropBlur"
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
-        
-        // 模糊强度
-        _BlurSize ("Blur Size", Range(0, 10)) = 5
-        // 模糊迭代次数（越高越糊，但也越吃性能）
-        _BlurIterations ("Blur Iterations", Range(1, 4)) = 2
-        // 背景暗化程度
+
+        // 建议默认值：radius = _Sigma * _BlurSize ≈ 4~6 背景像素
+        _BlurSize ("Blur Size", Range(0, 8)) = 3
+        _Sigma ("Sigma", Range(0.5, 4)) = 1.5
         _Darkness ("Darkness", Range(0, 1)) = 0.2
     }
 
@@ -41,6 +39,10 @@ Shader "Custom/UI_BackdropBlur"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareOpaqueTexture.hlsl"
 
+            // 采样点数：32 在半径 <= 6 时已足够密；半径越小可以降到 16
+            #define UI_BLUR_TAPS 32
+            #define GOLDEN_ANGLE 2.39996323
+
             struct Attributes
             {
                 float4 positionOS : POSITION;
@@ -63,9 +65,32 @@ Shader "Custom/UI_BackdropBlur"
                 float4 _MainTex_ST;
                 half4 _Color;
                 float _BlurSize;
-                float _BlurIterations;
+                float _Sigma;
                 float _Darkness;
             CBUFFER_END
+
+            // Vogel 螺旋圆盘采样。
+            // r_i = sqrt((i+0.5)/N)  —— 从中心开始均匀铺满整个圆盘（原表 r 从 0.177 起，中心有空环）
+            // 权重 exp(-2*r^2) 与 sigma 解耦：半径取 2*sigma 时高斯权重恒等于 exp(-2*r^2)
+            // [unroll] 后编译器会把 cos/sin/exp 的常量参数折叠掉
+            half3 DiscBlur(float2 uv, float2 texel, float radius)
+            {
+                half3 sum  = SampleSceneColor(uv);
+                float wsum = 1.0;
+
+                [unroll]
+                for (int i = 0; i < UI_BLUR_TAPS; i++)
+                {
+                    float  r     = sqrt((i + 0.5) / UI_BLUR_TAPS);
+                    float  theta = i * GOLDEN_ANGLE;
+                    float2 dir   = float2(cos(theta), sin(theta)) * r;
+                    float  w     = exp(-2.0 * r * r);
+
+                    sum  += SampleSceneColor(uv + dir * radius * texel) * w;
+                    wsum += w;
+                }
+                return sum / wsum;
+            }
 
             Varyings vert(Attributes input)
             {
@@ -78,57 +103,26 @@ Shader "Custom/UI_BackdropBlur"
                 return output;
             }
 
-            // 简单的屏幕采样函数
-            half3 SampleScreenBlur(float2 uv, float2 texelSize, float blurSize)
-            {
-                half3 color = 0;
-                float2 offset1 = float2(1.0, 1.0) * texelSize * blurSize;
-                float2 offset2 = float2(1.0, -1.0) * texelSize * blurSize;
-
-                // 九宫格采样（性能好，效果尚可）
-                color += SampleSceneColor(uv);
-                color += SampleSceneColor(uv + float2(offset1.x, 0));
-                color += SampleSceneColor(uv - float2(offset1.x, 0));
-                color += SampleSceneColor(uv + float2(0, offset1.y));
-                color += SampleSceneColor(uv - float2(0, offset1.y));
-                color += SampleSceneColor(uv + offset1);
-                color += SampleSceneColor(uv - offset1);
-                color += SampleSceneColor(uv + offset2);
-                color += SampleSceneColor(uv - offset2);
-                
-                return color / 9.0;
-            }
-
             half4 frag(Varyings input) : SV_Target
             {
-                // 获取屏幕 UV
                 float2 screenUV = input.screenPos.xy / input.screenPos.w;
-                float2 texelSize = 1.0 / _ScreenParams.xy; // 屏幕像素大小
 
-                // 多次迭代采样，增加模糊度
-                half3 blurredColor = 0;
-                float currentBlurSize = _BlurSize;
-                
-                [unroll]
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i >= _BlurIterations) break;
-                    // 在每次迭代中，采样范围逐渐扩大
-                    blurredColor += SampleScreenBlur(screenUV, texelSize, currentBlurSize);
-                    currentBlurSize *= 1.5; // 扩散系数
-                }
-                blurredColor /= _BlurIterations;
+#if defined(UNITY_PRETRANSFORM_TO_DISPLAY_ORIENTATION)
+                screenUV = RemovePretransformRotation(screenUV);
+#endif
 
-                // 与 UI 原图（比如圆角矩形贴图）混合
+                float2 texel = _CameraOpaqueTexture_TexelSize.xy;
+
+                // 关键：去掉 2 倍，半径 = sigma * blurSize
+                // 默认 1.5 * 3 = 4.5 背景像素，32 个点间距 ≈ 1.8 像素，基本无重影
+                float radius = max(_Sigma, 0.5) * max(_BlurSize, 0.0);
+
+                half3 blurred = DiscBlur(screenUV, texel, radius);
+
                 half4 texColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, input.uv);
-                
-                // 将屏幕模糊颜色乘上 UI 的原图颜色（保留UI的透明度、圆角和颜色）
-                half3 finalColor = blurredColor * texColor.rgb * input.color.rgb;
-                
-                // 暗化处理，让文字更清晰
+                half3 finalColor = blurred * texColor.rgb * input.color.rgb;
                 finalColor *= (1.0 - _Darkness);
 
-                // 最终透明度由 UI 自身的 Alpha 决定
                 return half4(finalColor, texColor.a * input.color.a);
             }
             ENDHLSL

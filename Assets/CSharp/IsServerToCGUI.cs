@@ -17,7 +17,7 @@ public class IsServerToCGUI : MonoBehaviour
         if (target != null)
         {
             target.text = @"欢迎来到TotAowClient！
-字体: LXGW Wenkai Mono
+字体：Google Sans Flex+鸿蒙黑体(HarmonyOS Sans)
 本项目完全MIT开源,需要在服务器、电脑下载对应服务端。
 ";
         }

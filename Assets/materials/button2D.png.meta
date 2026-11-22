@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 90df2dd2b9d048d488c0d4b4954eec68
+guid: b73f739e90f4bcc4b80300f609d68921
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4836540057832952440
-    second: bgicon_0
+      213: 9152156074588129058
+    second: button2D_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -154,13 +154,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bgicon_0
+      name: button2D_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 209
-        height: 187
+        width: 920
+        height: 920
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,8 +169,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 88d6be6417821ecb0800000000000000
-      internalID: -4836540057832952440
+      spriteID: 22742caa57df20f70800000000000000
+      internalID: 9152156074588129058
       vertices: []
       indices: 
       edges: []
@@ -189,7 +189,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      bgicon_0: -4836540057832952440
+      button2D_0: 9152156074588129058
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

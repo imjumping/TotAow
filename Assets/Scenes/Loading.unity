@@ -892,6 +892,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f30779299432b419e5c4d0573fb7b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FPSChecker
+  fontSize: 22
+  padding: {x: 14, y: 8}
+  bgColor: {r: 0, g: 0, b: 0, a: 0.55}
+  borderColor: {r: 1, g: 1, b: 1, a: 0.15}
+  refreshInterval: 0.25
 --- !u!4 &1684550588
 Transform:
   m_ObjectHideFlags: 0
@@ -1003,8 +1008,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0%
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: add90b06ec283554eb6bf8615920cb14, type: 2}
-  m_sharedMaterial: {fileID: -3587549102008474280, guid: add90b06ec283554eb6bf8615920cb14, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ba8cd7d63b113bf4892c2f7d1aa1dd35, type: 2}
+  m_sharedMaterial: {fileID: 7608016157655324838, guid: ba8cd7d63b113bf4892c2f7d1aa1dd35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

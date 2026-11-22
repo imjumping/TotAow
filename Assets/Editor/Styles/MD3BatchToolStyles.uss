@@ -1,0 +1,104 @@
+/* MD3 核心颜色变量 (Dark Mode) */
+:root {
+    --md-sys-color-surface: #1C1B1F;
+    --md-sys-color-surface-variant: #49454F;
+    --md-sys-color-primary: #D0BCFF; /* MD3 经典淡紫色，你可以换成你项目的主题色，比如薄荷绿 */
+    --md-sys-color-on-primary: #381E72;
+    --md-sys-color-on-surface: #E6E1E5;
+    --md-sys-color-on-surface-variant: #CAC4D0;
+    --md-sys-color-outline: #938F99;
+    --md-sys-color-error: #F2B8B5;
+    
+    --radius-large: 28px;
+    --radius-medium: 16px;
+    --radius-small: 8px;
+}
+
+/* 根容器 */
+.md-root {
+    background-color: var(--md-sys-color-surface);
+    padding: 24px;
+    flex-grow: 1;
+}
+
+/* 标题 (Headline) */
+.md-headline {
+    font-size: 24px;
+    color: var(--md-sys-color-on-surface);
+    -unity-font-style: bold;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+}
+
+/* 表面卡片 (Surface Container) - 用于包裹各种元素 */
+.md-card {
+    background-color: var(--md-sys-color-surface-variant);
+    border-radius: var(--radius-medium);
+    padding: 16px;
+    margin-bottom: 16px;
+    border-width: 1px;
+    border-color: rgba(255,255,255,0.05); /* 极微弱的边框增加立体感 */
+}
+
+/* 文字辅助说明 */
+.md-body-text {
+    font-size: 14px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 8px;
+    white-space: normal; /* 允许换行 */
+}
+
+/* 输入框区域 */
+.md-input-group {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 8px;
+}
+
+/* 按钮 (Filled Button 风格) */
+.md-button {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+    border-radius: 20px; /* 胶囊形状 */
+    padding: 10px 24px;
+    font-size: 14px;
+    -unity-font-style: bold;
+    border-width: 0;
+    height: 40px;
+    transition-property: background-color, transform;
+    transition-duration: 0.15s;
+}
+
+/* 鼠标悬浮时的按钮状态 */
+.md-button:hover {
+    background-color: #E8DDFF; /* 提亮 */
+}
+
+/* 按钮被按下时的状态 */
+.md-button:active {
+    transform: scale(0.98);
+    background-color: #B9A3F2;
+}
+
+/* 禁用状态 */
+.md-button:disabled {
+    background-color: var(--md-sys-color-surface-variant);
+    color: var(--md-sys-color-outline);
+    opacity: 0.5;
+}
+
+/* 滚动视图 */
+.md-scroll-view {
+    flex-grow: 1;
+    margin-top: 16px;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: var(--radius-small);
+    padding: 8px;
+}
+
+/* 日志文字 */
+.md-log-text {
+    font-size: 12px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 4px;
+}

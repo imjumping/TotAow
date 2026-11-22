@@ -19,6 +19,8 @@ public class AI_LookAt : MonoBehaviour
     [Header("状态控制")]
     public bool enableTracking = true;
     public bool isForcedLook = false; // 强制执行（比如剧情对话时）
+    [Tooltip("摄像机绑定到本角色（或本头部骨骼）时，自动停止看向，把头部旋转交给摄像机同步")]
+    public bool stopWhenCameraBound = true;
 
     // 内部状态
     private float _currentInfluence = 0f;
@@ -44,7 +46,18 @@ public class AI_LookAt : MonoBehaviour
     // 必须在 LateUpdate 执行，因为要覆盖 Animator 每一帧写死的数据
     void LateUpdate()
     {
-        if (!enableTracking || headBone == null) return;
+        if (headBone == null) return;
+
+        // 摄像机绑定到本角色（或本头部骨骼）时停止看向：
+        // 平滑退出追踪权重，把头部旋转交给摄像机的同步逻辑，避免两边抢同一个 rotation
+        if (stopWhenCameraBound && IsCameraBoundHere())
+        {
+            _currentInfluence = Mathf.MoveTowards(_currentInfluence, 0f, Time.deltaTime * smoothSpeed);
+            if (targetToLook != null) _cachedTargetPos = targetToLook.position;
+            return;
+        }
+
+        if (!enableTracking) return;
 
         // 1. 计算当前的追踪权重（平滑渐入渐出）
         if ((enableTracking && _hasTarget) || isForcedLook)
@@ -84,4 +97,12 @@ public class AI_LookAt : MonoBehaviour
     // 给外部调用的接口
     public void SetTracking(bool state) { enableTracking = state; }
     public void AssignTarget(Transform newTarget) { targetToLook = newTarget; _hasTarget = newTarget != null; }
+
+    /// <summary>摄像机是不是正绑在本角色 / 本头部上（绑定期间头部旋转归摄像机管）</summary>
+    private bool IsCameraBoundHere()
+    {
+        var cam = Transforming.Instance;
+        if (cam == null) return false;
+        return cam.IsCameraBoundTo(transform) || cam.IsCameraBoundTo(headBone);
+    }
 }

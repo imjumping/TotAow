@@ -167,7 +167,7 @@ PlayerSettings:
   hdrBitDepth: 0
   m_ColorGamuts: 00000000i
   targetPixelDensity: 30
-  resolutionScalingMode: 1
+  resolutionScalingMode: 0
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.4
@@ -308,7 +308,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 360d00e131abb35438fd8a5abe068871, type: 3}
+      m_Icon: {fileID: 2800000, guid: c4493ad065e9b7241a8fd61675a00eab, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
@@ -412,27 +412,37 @@ PlayerSettings:
       m_SubKind: App Store
   - m_BuildTarget: Android
     m_Icons:
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 5db11e769aa599b44a4a3d61f0d83373, type: 3}
+      - {fileID: 2800000, guid: 44049122a5df6174484216cdbdadf88c, type: 3}
       m_Width: 432
       m_Height: 432
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: f197f537ef6994741bd547fc4fac4f1c, type: 3}
+      - {fileID: 2800000, guid: 3c21f4772d2df0441bfb747c4efd4143, type: 3}
       m_Width: 324
       m_Height: 324
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: da5ea8e5f627fc9429f598318f525ed7, type: 3}
+      - {fileID: 2800000, guid: 6e941702cf5db164a8147901d85dae96, type: 3}
       m_Width: 216
       m_Height: 216
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: d489bdc6ed28cbf4cbf2e0e8def20081, type: 3}
+      - {fileID: 2800000, guid: cd32ab83a05b93a419bdcdecf7571be7, type: 3}
       m_Width: 162
       m_Height: 162
       m_Kind: 2
       m_SubKind: 
-    - m_Textures: []
+    - m_Textures:
+      - {fileID: 2800000, guid: 8fa84a8b90eb84b47afa72b4239bfbd1, type: 3}
+      - {fileID: 2800000, guid: 62fc214813ffa0540a33b3b07c846f85, type: 3}
       m_Width: 108
       m_Height: 108
       m_Kind: 2
