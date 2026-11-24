@@ -12,6 +12,11 @@ public class CrosshairShow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Transforming.Instance == null)
+        {
+            return;
+        }
+
         if (Transforming.Instance.IsCamCanMove)
         {
             scaleaaa += (1 - scaleaaa) * 3 * Time.deltaTime;

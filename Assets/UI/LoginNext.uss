@@ -18,7 +18,7 @@
     color: #FFFFFF; /* on-primary-container 角色 */
     font-size: 48px; /* 向 Label Large 靠拢，可按需调整 */
     -unity-font-style: normal; /* 去掉 bold，或改用 medium 字重 */
-    -unity-font: url("project://database/Assets/Models/LXGWWenKaiMono-Medium.ttf");
+    -unity-font: url("project://database/Assets/Fonts/HarmonyOS_Sans_SC_Regular.ttf");
     
     transition-property: scale, opacity,border-radius; /* 聚焦于 MD3 允许的反馈维度 */
     transition-duration: 0.25s;

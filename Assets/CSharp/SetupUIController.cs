@@ -6,14 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class SetupUIController : MonoBehaviour
 {
+    /// <summary>给 UI 提示 / 网络验证回调用。</summary>
+    public static SetupUIController Instance { get; private set; }
+
     [Header("configinfo的物体")]
     public Configinfo Configinfost;
 
+    [Header("UI Toolkit 提示字体（留空则用系统中文字体兜底）")]
+    [SerializeField] private Font toastFont;
+
+    private static Font _fallbackToastFont;
+
     private Button _nextButton;
     private PanelRenderer _panelRenderer;
+    private VisualElement _root;
     private Label _statusLabel;
     private IVisualElementScheduledItem _statusPop;
+    private IVisualElementScheduledItem _statusHide;
     private bool _isEnteringMainScene;
+    private int _loginVerifySeq;
 
     private const int MAX_PAGES = 5;
     // 登录信息面板所在的页（Configinfo 里也是判断 4）
@@ -26,6 +37,8 @@ public class SetupUIController : MonoBehaviour
 
     void Awake()
     {
+        Instance = this;
+
         _panelRenderer = GetComponent<PanelRenderer>();
         if (_panelRenderer != null)
         {
@@ -39,8 +52,13 @@ public class SetupUIController : MonoBehaviour
 
     void OnDestroy()
     {
+        if (Instance == this) Instance = null;
+
         _statusPop?.Pause();
         _statusPop = null;
+        _statusHide?.Pause();
+        _statusHide = null;
+        _root = null;
 
         if (_nextButton != null)
         {
@@ -62,6 +80,8 @@ public class SetupUIController : MonoBehaviour
             return;
         }
 
+        _root = root;
+
         // UI 重新加载后旧按钮已被销毁，先清理旧监听，避免重复绑定
         if (_nextButton != null)
         {
@@ -72,6 +92,8 @@ public class SetupUIController : MonoBehaviour
         // 旧界面里的提示文字也随旧 root 一起销毁了
         _statusPop?.Pause();
         _statusPop = null;
+        _statusHide?.Pause();
+        _statusHide = null;
         _statusLabel = null;
 
         _nextButton = root.Q<Button>("Next");
@@ -98,15 +120,51 @@ public class SetupUIController : MonoBehaviour
         _statusLabel = new Label();
         _statusLabel.pickingMode = PickingMode.Ignore;
         _statusLabel.style.position = Position.Absolute;
-        _statusLabel.style.left = 30;
-        _statusLabel.style.bottom = 30;
-        _statusLabel.style.fontSize = 28;
+        // 屏幕正下方居中，比原来左下角更像 Toast
+        _statusLabel.style.left = 0;
+        _statusLabel.style.right = 0;
+        _statusLabel.style.bottom = 48;
+        _statusLabel.style.paddingLeft = 24;
+        _statusLabel.style.paddingRight = 24;
+        _statusLabel.style.fontSize = 32;
+        _statusLabel.style.unityTextAlign = TextAnchor.LowerCenter;
+        _statusLabel.style.whiteSpace = WhiteSpace.NoWrap;
+
+        Font font = ResolveToastFont();
+        if (font != null)
+        {
+            // 默认 runtime theme 的字体不一定包含中文，密码错误会显示成方框。
+            // 优先用 Inspector 里指定的字体，没指定就用系统中文字体兜底。
+            _statusLabel.style.unityFont = font;
+        }
+
         _statusLabel.style.opacity = 1f;
         // 明确以文字中心为缩放原点，保证从小到大的“弹出”是向四周展开
         _statusLabel.style.transformOrigin = new StyleTransformOrigin(
             new TransformOrigin(Length.Percent(50), Length.Percent(50)));
         _statusLabel.style.display = DisplayStyle.None;
         root.Add(_statusLabel);
+    }
+
+    private Font ResolveToastFont()
+    {
+        if (toastFont != null) return toastFont;
+
+        if (_fallbackToastFont == null)
+        {
+            // 按平台常见中文字体依次尝试；都找不到时 Unity 会退回默认字体。
+            _fallbackToastFont = Font.CreateDynamicFontFromOSFont(new[]
+            {
+                "Microsoft YaHei",
+                "Noto Sans CJK SC",
+                "Noto Sans SC",
+                "Droid Sans Fallback",
+                "PingFang SC",
+                "Arial Unicode MS"
+            }, 32);
+        }
+
+        return _fallbackToastFont;
     }
 
     private void ShowStatus(string message, bool isError)
@@ -116,6 +174,9 @@ public class SetupUIController : MonoBehaviour
             return;
         }
 
+        _statusHide?.Pause();
+        _statusHide = null;
+
         _statusLabel.text = message;
         _statusLabel.style.color = isError
             ? new Color(1f, 0.4f, 0.35f)
@@ -123,6 +184,40 @@ public class SetupUIController : MonoBehaviour
         _statusLabel.style.display = DisplayStyle.Flex;
 
         PlayStatusPop();
+    }
+
+    /// <summary>
+    /// 给网络验证 / Android Toast 兜底使用的提示。
+    /// 和 “Saved” 共用同一套 UIToolkit 弹出动画，显示在屏幕正下方。
+    /// 返回 false 表示当前 UI 还没准备好（调用方可以再走 Android Toast / 日志）。
+    /// </summary>
+    public bool ShowToast(string message, bool isError = true, float holdSeconds = 2.5f)
+    {
+        if (string.IsNullOrEmpty(message))
+        {
+            return false;
+        }
+
+        if (_statusLabel == null && _root != null)
+        {
+            EnsureStatusLabel(_root);
+        }
+
+        if (_statusLabel == null)
+        {
+            return false;
+        }
+
+        ShowStatus(message, isError);
+
+        if (holdSeconds > 0f)
+        {
+            _statusHide = _statusLabel.schedule
+                .Execute(HideStatus)
+                .StartingIn((long)(holdSeconds * 1000f));
+        }
+
+        return true;
     }
 
     /// <summary>
@@ -214,6 +309,8 @@ public class SetupUIController : MonoBehaviour
     {
         _statusPop?.Pause();
         _statusPop = null;
+        _statusHide?.Pause();
+        _statusHide = null;
 
         if (_statusLabel != null)
         {
@@ -277,6 +374,11 @@ public class SetupUIController : MonoBehaviour
                 }
 
                 ShowStatus("Saved", false);
+
+                // 保存成功后异步验证密码/连通性。
+                // 注意：这里不等待结果，用户要求“密码错误也直接下一步”，
+                // 所以请求发出去后立刻继续翻页，结果回来再用 Toast 提示。
+                StartLoginVerification();
             }
 
             SetupCam.setuppage++;
@@ -298,6 +400,54 @@ public class SetupUIController : MonoBehaviour
         Debug.Log("进入主页！配置已保存。");
         
         SceneManager.LoadScene("Loading");
+    }
+
+    /// <summary>
+    /// 保存完登录信息后，向服务端验证“密码是否正确 / 连接是否通”。
+    /// 结果通过 Android Toast 或 UIToolkit 底部提示返回，不阻塞翻页。
+    /// </summary>
+    private void StartLoginVerification()
+    {
+        string ip = Globaldata.ServerIP;
+        string username = Globaldata.Username;
+        string password = Globaldata.Password;
+
+        // 连续点“下一步/上一步”时只认最后一次请求，避免旧结果把新提示覆盖掉。
+        int seq = ++_loginVerifySeq;
+        NetworkManager.VerifyLogin(ip, username, password, result =>
+        {
+            if (seq != _loginVerifySeq) return;
+            OnLoginVerified(result);
+        });
+    }
+
+    private void OnLoginVerified(LoginCheckResult result)
+    {
+        if (result == null) return;
+
+        switch (result.Status)
+        {
+            case LoginCheckStatus.Success:
+                UIToast.Show("连接成功", false, 2f);
+                break;
+
+            case LoginCheckStatus.PasswordIncorrect:
+                // 用户明确要求：密码错误也直接下一步，只提示，不拦截。
+                UIToast.Show("密码错误", true, 3f);
+                break;
+
+            case LoginCheckStatus.ConnectionFailed:
+                UIToast.Show("无法连接服务器", true, 3.5f);
+                break;
+
+            case LoginCheckStatus.InvalidInput:
+                UIToast.Show(string.IsNullOrEmpty(result.Message) ? "请输入用户名和密码" : result.Message, true, 3f);
+                break;
+
+            default:
+                UIToast.Show(string.IsNullOrEmpty(result.Message) ? "服务器返回异常" : result.Message, true, 3f);
+                break;
+        }
     }
 
     private bool TrySaveConfig()

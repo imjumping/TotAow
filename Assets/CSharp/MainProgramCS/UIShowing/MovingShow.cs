@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MovingShow : MonoBehaviour
 {
@@ -9,6 +8,10 @@ public class MovingShow : MonoBehaviour
     [Header("参数")]
     [SerializeField] private float fadeInSpeed  = 5f;
     [SerializeField] private float fadeOutSpeed = 8f;
+
+    [Header("ComeButton")]
+    [Tooltip("开启后：绑定跟随的时候强制隐藏本UI")]
+    [SerializeField] private bool bejmeowhide; // 直接用这一个，删掉多余private变量
 
     private float currentAlpha;
 
@@ -21,7 +24,7 @@ public class MovingShow : MonoBehaviour
             enabled = false;
             return;
         }
-        currentAlpha = group.alpha;
+        currentAlpha  = group.alpha;
     }
 
     void Update()
@@ -30,17 +33,30 @@ public class MovingShow : MonoBehaviour
         if (t == null) return;
 
         bool canMove = t.IsCamCanMove;
-        float target = canMove ? 1f : 0f;
-        float speed  = canMove ? fadeInSpeed : fadeOutSpeed;
+        bool bound = t.IsCameraBound;
 
-        currentAlpha = Mathf.MoveTowards(currentAlpha, target, speed * Time.deltaTime);
-        Apply(currentAlpha);
+        // ✅ 如果开启bejmeowhide并且已经绑定：直接目标alpha=0，覆盖原本的canMove逻辑
+        float targetAlpha;
+        if (bejmeowhide && bound)
+        {
+            targetAlpha = 0f;
+        }
+        else
+        {
+            targetAlpha = canMove ? 1f : 0f;
+        }
+
+        float speed  = canMove ? fadeInSpeed : fadeOutSpeed;
+        currentAlpha = Mathf.MoveTowards(currentAlpha, targetAlpha, speed * Time.deltaTime);
+
+        Apply(currentAlpha, bound);
     }
 
-    private void Apply(float a)
+    private void Apply(float a, bool isCameraBound)
     {
-        group.alpha = a;
         bool visible = a > 0.001f;
+
+        group.alpha = a;
         group.interactable   = visible;
         group.blocksRaycasts = visible;
     }

@@ -2634,7 +2634,7 @@ Texture2D:
   m_Name: GoogleSansFlexSDF Atlas
   m_ImageContentsHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: ccd391aab6ed7aadddc5b7c208f8de1e
   m_IsAlphaChannelOptional: 0
   serializedVersion: 4
   m_Width: 1024
